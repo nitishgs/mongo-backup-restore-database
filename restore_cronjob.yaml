@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-restore
+spec:
+  template:
+    spec:
+      containers:
+      - name: mongo-restore
+        image: your-restore-image:latest
+        volumeMounts:
+        - name: restore-volume
+          mountPath: /backup
+        env:
+        - name: RESTORE_TIMESTAMP
+          value: "your-timestamp"  # Update this value
+      restartPolicy: OnFailure
+      volumes:
+      - name: restore-volume
+        hostPath:
+          path: /path/to/backup
+          type: Directory

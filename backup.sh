@@ -15,6 +15,3 @@ for shard in $(mongo --quiet --eval "sh.status()" | grep 'shardName' | awk '{pri
 do
     mongodump --host ${MONGO_HOST}/${shard} --port ${MONGO_PORT} --out ${BACKUP_DIR}/${shard}-${TIMESTAMP}
 done
-
-# Optional: Upload the backup to a remote storage (e.g., AWS S3)
-# aws s3 cp ${BACKUP_DIR} s3://your-bucket/ --recursive
